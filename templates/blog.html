@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog — MediSense AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f0f4f8; --surface: #ffffff; --surface2: #e8edf3;
+      --primary: #1a6b5c; --primary-light: #22897a;
+      --accent: #e8f5f1; --accent2: #d0ede8;
+      --text: #12232e; --text-muted: #5a7080;
+      --border: #d1dde6; --shadow: 0 4px 24px rgba(26,107,92,0.10);
+      --radius: 18px; --radius-sm: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    .navbar { background: var(--surface) !important; border-bottom: 1px solid var(--border); padding: 12px 0; position: sticky; top: 0; z-index: 100; }
+    .brand-wrap { display: flex; align-items: center; gap: 10px; }
+    .brand-icon { width: 38px; height: 38px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; }
+    .brand-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--primary); letter-spacing: -0.5px; }
+    .brand-tag { font-size: 0.6rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-top: -2px; }
+    .nav-link { color: var(--text-muted) !important; font-weight: 500; font-size: 0.88rem; padding: 6px 14px !important; border-radius: 8px; transition: all 0.2s; }
+    .nav-link:hover, .nav-link.active { color: var(--primary) !important; background: var(--accent); }
+
+    .hero { background: linear-gradient(135deg, #1a6b5c 0%, #134e3f 60%, #0f3d31 100%); padding: 64px 0 72px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -60px; right: -80px; width: 420px; height: 420px; border-radius: 50%; background: rgba(255,255,255,0.05); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: #a7e8d8; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px; padding: 5px 14px; border-radius: 20px; margin-bottom: 18px; }
+    .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: white; line-height: 1.15; letter-spacing: -1px; margin-bottom: 14px; }
+    .hero h1 span { color: #7ee8cc; }
+    .hero p { color: rgba(255,255,255,0.7); font-size: 1rem; font-weight: 300; max-width: 520px; line-height: 1.7; }
+
+    .content-wrap { margin-top: -36px; position: relative; z-index: 2; padding-bottom: 60px; }
+
+    /* FEATURED ARTICLE */
+    .article-main { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .article-main-header { background: linear-gradient(135deg, var(--primary) 0%, #134e3f 100%); padding: 36px; }
+    .article-tag { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); color: #a7e8d8; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.5px; padding: 4px 12px; border-radius: 20px; margin-bottom: 14px; text-transform: uppercase; }
+    .article-main-header h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.3rem, 3vw, 1.9rem); color: white; line-height: 1.25; letter-spacing: -0.5px; margin-bottom: 12px; }
+    .article-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .article-meta span { font-size: 0.78rem; color: rgba(255,255,255,0.6); display: flex; align-items: center; gap: 5px; }
+    .article-body { padding: 32px; }
+
+    /* TYPOGRAPHY for article */
+    .article-body h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--text); margin: 28px 0 10px; padding-left: 14px; border-left: 3px solid var(--primary); }
+    .article-body h3:first-child { margin-top: 0; }
+    .article-body p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 16px; }
+    .article-body ol, .article-body ul { padding-left: 0; list-style: none; margin-bottom: 16px; }
+    .article-body ol { counter-reset: step; }
+    .article-body ol li { counter-increment: step; display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--surface2); font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+    .article-body ol li::before { content: counter(step); min-width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: white; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .article-body ol li:last-child { border-bottom: none; }
+    .article-body ul li { display: flex; gap: 10px; padding: 7px 0; font-size: 0.9rem; color: var(--text-muted); }
+    .article-body ul li::before { content: '›'; color: var(--primary); font-weight: 700; font-size: 1.1rem; line-height: 1.3; }
+    .article-body strong { color: var(--text); font-weight: 600; }
+
+    /* KEY FEATURES CHIPS */
+    .feature-chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+    .f-chip { display: inline-flex; align-items: center; gap: 7px; background: var(--accent); border: 1.5px solid var(--accent2); color: var(--primary); font-size: 0.82rem; font-weight: 600; padding: 7px 14px; border-radius: 20px; }
+
+    /* CONCLUSION CARD */
+    .conclusion-card { background: var(--accent); border: 1.5px solid var(--accent2); border-radius: var(--radius-sm); padding: 22px; margin-top: 24px; }
+    .conclusion-card p { font-size: 0.9rem; color: var(--primary); line-height: 1.7; margin: 0; }
+
+    /* SIDEBAR */
+    .sidebar-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 16px; }
+    .sidebar-header { background: var(--accent); border-bottom: 1px solid var(--accent2); padding: 14px 18px; display: flex; align-items: center; gap: 10px; }
+    .sidebar-header-icon { width: 30px; height: 30px; background: var(--primary); border-radius: 7px; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; }
+    .sidebar-header h6 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; color: var(--primary); margin: 0; }
+    .sidebar-body { padding: 18px; }
+    .topic-item { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--surface2); font-size: 0.85rem; color: var(--text-muted); cursor: pointer; transition: color 0.2s; }
+    .topic-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .topic-item:hover { color: var(--primary); }
+    .topic-item i { color: var(--primary); font-size: 0.9rem; }
+    .tech-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-size: 0.8rem; font-weight: 500; padding: 5px 12px; border-radius: 20px; margin: 4px; }
+
+    .footer { background: var(--text); color: rgba(255,255,255,0.45); text-align: center; padding: 28px; font-size: 0.8rem; }
+    .footer span { color: rgba(255,255,255,0.7); }
+    .fade-in { animation: fadeIn 0.5s ease forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand text-decoration-none" href="/">
+      <div class="brand-wrap">
+        <div class="brand-icon"><i class="bi bi-heart-pulse-fill"></i></div>
+        <div><span class="brand-name">MediSense</span><span class="brand-tag">AI Health Assistant</span></div>
+      </div>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMain">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-1">
+        <li class="nav-item"><a class="nav-link" href="/"><i class="bi bi-house me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about"><i class="bi bi-info-circle me-1"></i>About</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/blog"><i class="bi bi-journal-text me-1"></i>Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="/developer"><i class="bi bi-code-slash me-1"></i>Developer</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contact"><i class="bi bi-envelope me-1"></i>Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge"><i class="bi bi-journal-text"></i> Technical Blog</div>
+    <h1>Building <span>AI-powered</span><br>Health Tools</h1>
+    <p>A deep dive into how we built a symptom-based disease diagnosis system using Flask, machine learning, and real medical datasets.</p>
+  </div>
+</section>
+
+<div class="content-wrap">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- Main Article -->
+      <div class="col-lg-8">
+        <div class="article-main fade-in">
+          <div class="article-main-header">
+            <div class="article-tag"><i class="bi bi-cpu me-1"></i> Machine Learning · Flask · Healthcare</div>
+            <h2>Building a Symptom-Based Disease Diagnosis Web App with Flask and Machine Learning</h2>
+            <div class="article-meta">
+              <span><i class="bi bi-person"></i> Junaid Khan</span>
+              <span><i class="bi bi-calendar3"></i> January 2024</span>
+              <span><i class="bi bi-clock"></i> 6 min read</span>
+            </div>
+          </div>
+
+          <div class="article-body">
+            <p>In the age of technology and information, access to accurate and timely healthcare is more critical than ever. With the increasing importance of remote healthcare solutions, we built a symptom-based disease diagnosis web application — combining Flask for the backend with a machine learning classifier to help users identify potential illnesses from reported symptoms.</p>
+
+            <h3>The Problem</h3>
+            <p>People regularly experience symptoms and want quick, reliable answers about their health. Differentiating between diseases is genuinely difficult, especially when symptoms overlap — headache and fatigue could point to anything from dehydration to dengue fever. The goal was a platform where users input symptoms and receive data-driven guidance instantly.</p>
+
+            <h3>The Solution</h3>
+            <p>We built a web app where users enter a list of symptoms and our pre-trained SVM model predicts the most likely condition. Here's how it works step by step:</p>
+            <ol>
+              <li><strong>Symptom Input:</strong> Users enter symptoms through a clean interface supporting 132 distinct symptoms. Tags and voice input make it effortless.</li>
+              <li><strong>ML Model:</strong> An SVM classifier trained on a labeled medical dataset maps symptom vectors to disease predictions.</li>
+              <li><strong>Instant Prediction:</strong> The model returns the most probable disease in real time.</li>
+              <li><strong>Comprehensive Guidance:</strong> Alongside the prediction, users receive a disease description, precautions, medications, diet advice, and workout recommendations.</li>
+            </ol>
+
+            <h3>Key Features</h3>
+            <div class="feature-chips">
+              <span class="f-chip"><i class="bi bi-search-heart"></i> Smart Symptom Input</span>
+              <span class="f-chip"><i class="bi bi-cpu"></i> SVM Prediction</span>
+              <span class="f-chip"><i class="bi bi-shield-check"></i> Precaution Guidance</span>
+              <span class="f-chip"><i class="bi bi-capsule"></i> Medication Info</span>
+              <span class="f-chip"><i class="bi bi-egg-fried"></i> Diet Advice</span>
+              <span class="f-chip"><i class="bi bi-activity"></i> Workout Tips</span>
+              <span class="f-chip"><i class="bi bi-mic"></i> Voice Recognition</span>
+            </div>
+
+            <h3>Technology Stack</h3>
+            <ul>
+              <li><strong>Backend:</strong> Python · Flask · Pandas · NumPy · Scikit-learn</li>
+              <li><strong>Frontend:</strong> HTML5 · Bootstrap 5 · Vanilla JS · Web Speech API</li>
+              <li><strong>Model:</strong> Support Vector Machine (SVM) serialised via Pickle</li>
+              <li><strong>Data:</strong> CSV-based medical datasets for symptoms, diseases, medications, diets, and workouts</li>
+            </ul>
+
+            <h3>Conclusion</h3>
+            <div class="conclusion-card">
+              <p>MediSense brings the power of machine learning and healthcare information directly to users. It's not a replacement for professional medical advice — it's a first step: empowering people with knowledge before they see a doctor. As remote healthcare solutions gain prominence, projects like this represent a meaningful step toward democratising health information worldwide.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+
+        <div class="sidebar-card fade-in" style="animation-delay:0.1s;">
+          <div class="sidebar-header">
+            <div class="sidebar-header-icon"><i class="bi bi-tags"></i></div>
+            <h6>Topics Covered</h6>
+          </div>
+          <div class="sidebar-body">
+            <div class="topic-item"><i class="bi bi-chevron-right"></i> Machine Learning in Healthcare</div>
+            <div class="topic-item"><i class="bi bi-chevron-right"></i> Flask Web Development</div>
+            <div class="topic-item"><i class="bi bi-chevron-right"></i> Support Vector Machines</div>
+            <div class="topic-item"><i class="bi bi-chevron-right"></i> Symptom Classification</div>
+            <div class="topic-item"><i class="bi bi-chevron-right"></i> Medical Data Processing</div>
+            <div class="topic-item"><i class="bi bi-chevron-right"></i> Voice Recognition (Web API)</div>
+          </div>
+        </div>
+
+        <div class="sidebar-card fade-in" style="animation-delay:0.18s;">
+          <div class="sidebar-header">
+            <div class="sidebar-header-icon"><i class="bi bi-stack"></i></div>
+            <h6>Tech Stack</h6>
+          </div>
+          <div class="sidebar-body">
+            <div>
+              <span class="tech-pill"><i class="bi bi-filetype-py"></i> Python</span>
+              <span class="tech-pill">Flask</span>
+              <span class="tech-pill">Scikit-learn</span>
+              <span class="tech-pill">Pandas</span>
+              <span class="tech-pill">NumPy</span>
+              <span class="tech-pill">Bootstrap 5</span>
+              <span class="tech-pill">SVM</span>
+              <span class="tech-pill">Web Speech API</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-card fade-in" style="animation-delay:0.24s;">
+          <div class="sidebar-header">
+            <div class="sidebar-header-icon"><i class="bi bi-bar-chart"></i></div>
+            <h6>Project Stats</h6>
+          </div>
+          <div class="sidebar-body">
+            <div class="topic-item"><i class="bi bi-virus"></i> 41+ Diseases</div>
+            <div class="topic-item"><i class="bi bi-list-check"></i> 132 Symptoms</div>
+            <div class="topic-item"><i class="bi bi-database"></i> 5 Data Sources</div>
+            <div class="topic-item"><i class="bi bi-lightning"></i> Real-time Prediction</div>
+          </div>
+        </div>
+
+        <a href="/" class="d-block text-decoration-none">
+          <div style="background: linear-gradient(135deg, var(--primary) 0%, #134e3f 100%); border-radius: var(--radius); padding: 22px; text-align: center; cursor: pointer;">
+            <i class="bi bi-search-heart" style="font-size: 1.8rem; color: #7ee8cc; display: block; margin-bottom: 10px;"></i>
+            <div style="font-family:'Syne',sans-serif; font-weight:700; color:white; margin-bottom:6px;">Try the Diagnosis Tool</div>
+            <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Enter your symptoms and get an AI-powered health assessment</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <span>MediSense AI</span> &nbsp;·&nbsp; Powered by Support Vector Machine &nbsp;·&nbsp; Not a substitute for professional medical advice
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

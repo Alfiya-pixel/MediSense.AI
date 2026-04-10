@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Developer — MediSense AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f0f4f8; --surface: #ffffff; --surface2: #e8edf3;
+      --primary: #1a6b5c; --primary-light: #22897a;
+      --accent: #e8f5f1; --accent2: #d0ede8;
+      --text: #12232e; --text-muted: #5a7080;
+      --border: #d1dde6; --shadow: 0 4px 24px rgba(26,107,92,0.10);
+      --radius: 18px; --radius-sm: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    .navbar { background: var(--surface) !important; border-bottom: 1px solid var(--border); padding: 12px 0; position: sticky; top: 0; z-index: 100; }
+    .brand-wrap { display: flex; align-items: center; gap: 10px; }
+    .brand-icon { width: 38px; height: 38px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; }
+    .brand-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--primary); letter-spacing: -0.5px; }
+    .brand-tag { font-size: 0.6rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-top: -2px; }
+    .nav-link { color: var(--text-muted) !important; font-weight: 500; font-size: 0.88rem; padding: 6px 14px !important; border-radius: 8px; transition: all 0.2s; }
+    .nav-link:hover, .nav-link.active { color: var(--primary) !important; background: var(--accent); }
+
+    .hero { background: linear-gradient(135deg, #1a6b5c 0%, #134e3f 60%, #0f3d31 100%); padding: 64px 0 72px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -60px; right: -80px; width: 420px; height: 420px; border-radius: 50%; background: rgba(255,255,255,0.05); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: #a7e8d8; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px; padding: 5px 14px; border-radius: 20px; margin-bottom: 18px; }
+    .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: white; line-height: 1.15; letter-spacing: -1px; margin-bottom: 14px; }
+    .hero h1 span { color: #7ee8cc; }
+    .hero p { color: rgba(255,255,255,0.7); font-size: 1rem; font-weight: 300; max-width: 520px; line-height: 1.7; }
+
+    .content-wrap { margin-top: -36px; position: relative; z-index: 2; padding-bottom: 60px; }
+
+    /* PROFILE CARD */
+    .profile-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+    .profile-banner { background: linear-gradient(135deg, var(--primary), #134e3f); height: 100px; position: relative; }
+    .profile-avatar { width: 80px; height: 80px; border-radius: 50%; background: #7ee8cc; border: 4px solid white; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.8rem; color: var(--primary); position: absolute; bottom: -40px; left: 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+    .profile-body { padding: 52px 28px 28px; }
+    .profile-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--text); letter-spacing: -0.5px; margin-bottom: 3px; }
+    .profile-role { font-size: 0.85rem; color: var(--primary); font-weight: 600; margin-bottom: 14px; }
+    .profile-bio { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }
+    .profile-stat { text-align: center; }
+    .profile-stat .num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--primary); }
+    .profile-stat .lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .divider-v { width: 1px; background: var(--border); }
+
+    /* SKILL BARS */
+    .skill-wrap { margin-bottom: 14px; }
+    .skill-label { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 500; margin-bottom: 5px; }
+    .skill-bar { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+    .skill-fill { height: 100%; background: var(--primary); border-radius: 3px; transition: width 1.2s ease; }
+
+    /* SECTION CARDS */
+    .section-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 16px; }
+    .section-header { background: var(--accent); border-bottom: 1px solid var(--accent2); padding: 16px 22px; display: flex; align-items: center; gap: 10px; }
+    .section-header-icon { width: 32px; height: 32px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; }
+    .section-header h5 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.92rem; color: var(--primary); margin: 0; }
+    .section-body { padding: 22px; }
+    .section-body p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 12px; }
+    .section-body p:last-child { margin-bottom: 0; }
+
+    /* EXPERTISE CHIPS */
+    .exp-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--accent); border: 1.5px solid var(--accent2); color: var(--primary); font-size: 0.78rem; font-weight: 600; padding: 6px 13px; border-radius: 20px; margin: 4px; }
+
+    /* TIMELINE */
+    .tl-item { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .tl-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .tl-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); flex-shrink: 0; margin-top: 5px; }
+    .tl-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.88rem; margin-bottom: 3px; }
+    .tl-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+
+    .footer { background: var(--text); color: rgba(255,255,255,0.45); text-align: center; padding: 28px; font-size: 0.8rem; }
+    .footer span { color: rgba(255,255,255,0.7); }
+    .fade-in { animation: fadeIn 0.5s ease forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    .s1{animation-delay:0.05s} .s2{animation-delay:0.12s} .s3{animation-delay:0.19s}
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand text-decoration-none" href="/">
+      <div class="brand-wrap">
+        <div class="brand-icon"><i class="bi bi-heart-pulse-fill"></i></div>
+        <div><span class="brand-name">MediSense</span><span class="brand-tag">AI Health Assistant</span></div>
+      </div>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMain">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-1">
+        <li class="nav-item"><a class="nav-link" href="/"><i class="bi bi-house me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about"><i class="bi bi-info-circle me-1"></i>About</a></li>
+        <li class="nav-item"><a class="nav-link" href="/blog"><i class="bi bi-journal-text me-1"></i>Blog</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/developer"><i class="bi bi-code-slash me-1"></i>Developer</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contact"><i class="bi bi-envelope me-1"></i>Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge"><i class="bi bi-code-slash"></i> Meet the Developer</div>
+    <h1>Built with <span>passion</span><br>and precision</h1>
+    <p>Behind MediSense is a dedicated AI & ML engineer with a vision to make healthcare more accessible through intelligent technology.</p>
+  </div>
+</section>
+
+<div class="content-wrap">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- Left col: Profile + Skills -->
+      <div class="col-lg-4">
+
+        <!-- Profile Card -->
+        <div class="profile-card fade-in s1 mb-4">
+          <div class="profile-banner"></div>
+          <div class="profile-avatar">JK</div>
+          <div class="profile-body">
+            <div class="profile-name">Junaid Khan</div>
+            <div class="profile-role"><i class="bi bi-cpu me-1"></i>AI & ML Engineer</div>
+            <div class="profile-bio">Passionate about leveraging technology to improve lives. Over 5 years building intelligent systems at the intersection of machine learning and real-world impact.</div>
+            <div class="d-flex justify-content-around py-3" style="border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:20px;">
+              <div class="profile-stat"><div class="num">5+</div><div class="lbl">Years Exp</div></div>
+              <div class="divider-v"></div>
+              <div class="profile-stat"><div class="num">10+</div><div class="lbl">Projects</div></div>
+              <div class="divider-v"></div>
+              <div class="profile-stat"><div class="num">3</div><div class="lbl">Countries</div></div>
+            </div>
+            <!-- Skills -->
+            <div class="skill-wrap">
+              <div class="skill-label"><span>Machine Learning</span><span style="color:var(--primary);">95%</span></div>
+              <div class="skill-bar"><div class="skill-fill" data-width="95%"></div></div>
+            </div>
+            <div class="skill-wrap">
+              <div class="skill-label"><span>Python & Flask</span><span style="color:var(--primary);">90%</span></div>
+              <div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div>
+            </div>
+            <div class="skill-wrap">
+              <div class="skill-label"><span>Data Science</span><span style="color:var(--primary);">88%</span></div>
+              <div class="skill-bar"><div class="skill-fill" data-width="88%"></div></div>
+            </div>
+            <div class="skill-wrap">
+              <div class="skill-label"><span>Healthcare AI</span><span style="color:var(--primary);">82%</span></div>
+              <div class="skill-bar"><div class="skill-fill" data-width="82%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Expertise Tags -->
+        <div class="section-card fade-in s2">
+          <div class="section-header">
+            <div class="section-header-icon"><i class="bi bi-lightning"></i></div>
+            <h5>Expertise</h5>
+          </div>
+          <div class="section-body">
+            <span class="exp-chip"><i class="bi bi-cpu"></i> SVM / Decision Trees</span>
+            <span class="exp-chip">Deep Learning</span>
+            <span class="exp-chip">NLP</span>
+            <span class="exp-chip">Computer Vision</span>
+            <span class="exp-chip">Flask / Django</span>
+            <span class="exp-chip">Scikit-learn</span>
+            <span class="exp-chip">TensorFlow</span>
+            <span class="exp-chip">Health Informatics</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right col: Story + Timeline -->
+      <div class="col-lg-8">
+
+        <div class="section-card fade-in s1 mb-4">
+          <div class="section-header">
+            <div class="section-header-icon"><i class="bi bi-person-circle"></i></div>
+            <h5>About Junaid Khan</h5>
+          </div>
+          <div class="section-body">
+            <p>Hello! I'm Junaid Khan — an AI and Machine Learning Engineer with over 5 years of experience turning complex data into meaningful, user-centric applications. My journey started with a deep fascination for how algorithms can simulate human reasoning, and that curiosity has only grown over the years.</p>
+            <p>My work is driven by a commitment to excellence and a belief that technology should be accessible and beneficial to everyone. Whether it's developing predictive models, creating intelligent algorithms, or designing clean user interfaces — I strive for solutions that are both cutting-edge and practical.</p>
+            <p>MediSense represents the convergence of two things I care about deeply: AI capability and healthcare accessibility. I believe intelligent systems can meaningfully improve how people understand and respond to their health — and this project is a step in that direction.</p>
+          </div>
+        </div>
+
+        <div class="section-card fade-in s2 mb-4">
+          <div class="section-header">
+            <div class="section-header-icon"><i class="bi bi-clock-history"></i></div>
+            <h5>Journey & Milestones</h5>
+          </div>
+          <div class="section-body">
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div>
+                <div class="tl-title">Started MediSense AI Project</div>
+                <div class="tl-desc">Built an end-to-end Flask application with an SVM model for symptom-based disease classification — covering 41+ diseases and 132 symptoms.</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div>
+                <div class="tl-title">International ML Projects</div>
+                <div class="tl-desc">Collaborated on cross-border AI initiatives, pushing the boundaries of predictive modelling and real-world ML deployments.</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div>
+                <div class="tl-title">5 Years of AI Engineering</div>
+                <div class="tl-desc">Accumulated deep expertise across data science, NLP, computer vision, and healthcare AI — delivering production-grade intelligent systems.</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div>
+                <div class="tl-title">Computer Science Foundation</div>
+                <div class="tl-desc">Built a rigorous academic background in CS, with a specialisation in machine learning and algorithm design.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card fade-in s3">
+          <div class="section-header">
+            <div class="section-header-icon"><i class="bi bi-stars"></i></div>
+            <h5>Philosophy</h5>
+          </div>
+          <div class="section-body">
+            <p>I believe the best technology is invisible — it just works, and it makes someone's life measurably better. MediSense was built with that principle at its core: no jargon, no complexity, just clear health insights when you need them.</p>
+            <p>I'm always open to collaboration, feedback, and new challenges. If you'd like to connect, you'll find me on the contact page.</p>
+            <a href="/contact" style="display:inline-flex; align-items:center; gap:8px; background:var(--primary); color:white; font-family:'Syne',sans-serif; font-weight:700; font-size:0.88rem; padding:11px 22px; border-radius:var(--radius-sm); text-decoration:none; transition:all 0.2s; margin-top:8px;">
+              <i class="bi bi-envelope"></i> Get in Touch
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <span>MediSense AI</span> &nbsp;·&nbsp; Powered by Support Vector Machine &nbsp;·&nbsp; Not a substitute for professional medical advice
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Animate skill bars on load
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.skill-fill').forEach(bar => {
+      bar.style.width = '0%';
+      setTimeout(() => { bar.style.width = bar.dataset.width; }, 300);
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — MediSense AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f0f4f8; --surface: #ffffff; --surface2: #e8edf3;
+      --primary: #1a6b5c; --primary-light: #22897a;
+      --accent: #e8f5f1; --accent2: #d0ede8;
+      --text: #12232e; --text-muted: #5a7080;
+      --border: #d1dde6; --shadow: 0 4px 24px rgba(26,107,92,0.10);
+      --radius: 18px; --radius-sm: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    .navbar { background: var(--surface) !important; border-bottom: 1px solid var(--border); padding: 12px 0; position: sticky; top: 0; z-index: 100; }
+    .brand-wrap { display: flex; align-items: center; gap: 10px; }
+    .brand-icon { width: 38px; height: 38px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; }
+    .brand-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--primary); letter-spacing: -0.5px; }
+    .brand-tag { font-size: 0.6rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-top: -2px; }
+    .nav-link { color: var(--text-muted) !important; font-weight: 500; font-size: 0.88rem; padding: 6px 14px !important; border-radius: 8px; transition: all 0.2s; }
+    .nav-link:hover, .nav-link.active { color: var(--primary) !important; background: var(--accent); }
+
+    .hero { background: linear-gradient(135deg, #1a6b5c 0%, #134e3f 60%, #0f3d31 100%); padding: 64px 0 72px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -60px; right: -80px; width: 420px; height: 420px; border-radius: 50%; background: rgba(255,255,255,0.05); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: #a7e8d8; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px; padding: 5px 14px; border-radius: 20px; margin-bottom: 18px; }
+    .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: white; line-height: 1.15; letter-spacing: -1px; margin-bottom: 14px; }
+    .hero h1 span { color: #7ee8cc; }
+    .hero p { color: rgba(255,255,255,0.7); font-size: 1rem; font-weight: 300; max-width: 520px; line-height: 1.7; }
+
+    .content-wrap { margin-top: -36px; position: relative; z-index: 2; padding-bottom: 60px; }
+
+    /* CONTACT INFO CARDS */
+    .info-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 24px; display: flex; align-items: flex-start; gap: 16px; transition: transform 0.2s, box-shadow 0.2s; height: 100%; }
+    .info-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .info-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .info-card h5 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.88rem; color: var(--text); margin-bottom: 4px; }
+    .info-card a, .info-card p { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; line-height: 1.5; display: block; }
+    .info-card a:hover { color: var(--primary); }
+
+    /* FORM CARD */
+    .form-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .form-card-header { background: var(--accent); border-bottom: 1px solid var(--accent2); padding: 20px 28px; display: flex; align-items: center; gap: 12px; }
+    .form-header-icon { width: 36px; height: 36px; background: var(--primary); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: white; font-size: 15px; }
+    .form-card-header h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--primary); margin: 0; }
+    .form-card-header p { font-size: 0.78rem; color: var(--text-muted); margin: 0; }
+    .form-body { padding: 28px; }
+
+    /* FORM FIELDS */
+    .field-label { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text); margin-bottom: 7px; display: block; }
+    .field-input { width: 100%; border: 2px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--text); background: var(--bg); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+    .field-input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(26,107,92,0.08); background: white; }
+    .field-input::placeholder { color: #aab8c2; }
+    textarea.field-input { resize: vertical; min-height: 120px; }
+
+    .btn-send { background: var(--primary); border: none; color: white; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; padding: 13px 28px; border-radius: var(--radius-sm); width: 100%; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
+    .btn-send:hover { background: var(--primary-light); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,107,92,0.25); }
+
+    /* SUCCESS NOTICE */
+    .success-notice { display: none; background: var(--accent); border: 1.5px solid var(--accent2); border-radius: var(--radius-sm); padding: 14px 18px; font-size: 0.88rem; color: var(--primary); display: none; align-items: center; gap: 10px; margin-top: 12px; }
+
+    /* SIDEBAR PANELS */
+    .side-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 16px; }
+    .side-header { background: var(--accent); border-bottom: 1px solid var(--accent2); padding: 14px 18px; display: flex; align-items: center; gap: 10px; }
+    .side-header-icon { width: 30px; height: 30px; background: var(--primary); border-radius: 7px; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; }
+    .side-header h6 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; color: var(--primary); margin: 0; }
+    .side-body { padding: 18px; }
+    .side-body p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 10px; }
+    .side-body p:last-child { margin-bottom: 0; }
+
+    /* SOCIAL BUTTONS */
+    .social-btn { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600; color: var(--text); text-decoration: none; transition: all 0.2s; margin-bottom: 8px; }
+    .social-btn:last-child { margin-bottom: 0; }
+    .social-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--accent); }
+    .social-btn .si { width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+
+    /* LOCATION CARD */
+    .location-card { background: linear-gradient(135deg, var(--primary) 0%, #134e3f 100%); border-radius: var(--radius); padding: 24px; color: white; }
+    .location-card h6 { font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: 8px; color: #7ee8cc; }
+    .location-card p { font-size: 0.85rem; color: rgba(255,255,255,0.75); line-height: 1.6; margin: 0; }
+
+    .footer { background: var(--text); color: rgba(255,255,255,0.45); text-align: center; padding: 28px; font-size: 0.8rem; }
+    .footer span { color: rgba(255,255,255,0.7); }
+    .fade-in { animation: fadeIn 0.5s ease forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    .s1{animation-delay:0.05s} .s2{animation-delay:0.12s} .s3{animation-delay:0.19s}
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand text-decoration-none" href="/">
+      <div class="brand-wrap">
+        <div class="brand-icon"><i class="bi bi-heart-pulse-fill"></i></div>
+        <div><span class="brand-name">MediSense</span><span class="brand-tag">AI Health Assistant</span></div>
+      </div>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMain">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-1">
+        <li class="nav-item"><a class="nav-link" href="/"><i class="bi bi-house me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about"><i class="bi bi-info-circle me-1"></i>About</a></li>
+        <li class="nav-item"><a class="nav-link" href="/blog"><i class="bi bi-journal-text me-1"></i>Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="/developer"><i class="bi bi-code-slash me-1"></i>Developer</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/contact"><i class="bi bi-envelope me-1"></i>Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge"><i class="bi bi-envelope"></i> Get in Touch</div>
+    <h1>We'd love to <span>hear</span><br>from you</h1>
+    <p>Have a question, feedback, or just want to say hello? Our team is ready to help — reach out any way you prefer.</p>
+  </div>
+</section>
+
+<div class="content-wrap">
+  <div class="container">
+
+    <!-- Info Cards Row -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <div class="info-card fade-in s1">
+          <div class="info-icon" style="background:#e8f5f1; color:var(--primary);"><i class="bi bi-envelope-fill"></i></div>
+          <div>
+            <h5>Email</h5>
+            <a href="mailto:junaidmehsuud035@gmail.com">junaidmehsuud035@gmail.com</a>
+            <p style="margin-top:4px; font-size:0.78rem;">Usually responds within 24 hours</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-card fade-in s2">
+          <div class="info-icon" style="background:#fff3e0; color:#e8a228;"><i class="bi bi-telephone-fill"></i></div>
+          <div>
+            <h5>Phone</h5>
+            <a href="tel:03477155035">03477155035</a>
+            <p style="margin-top:4px; font-size:0.78rem;">Mon – Fri, 9 AM – 6 PM PKT</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-card fade-in s3">
+          <div class="info-icon" style="background:#e3f2fd; color:#1976d2;"><i class="bi bi-geo-alt-fill"></i></div>
+          <div>
+            <h5>Location</h5>
+            <p>Dera Ismail Khan</p>
+            <p>KPK, Pakistan</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- Contact Form -->
+      <div class="col-lg-8">
+        <div class="form-card fade-in">
+          <div class="form-card-header">
+            <div class="form-header-icon"><i class="bi bi-chat-dots"></i></div>
+            <div>
+              <h4>Send a Message</h4>
+              <p>Fill in the form and we'll get back to you</p>
+            </div>
+          </div>
+          <div class="form-body">
+            <div class="row g-3 mb-3">
+              <div class="col-sm-6">
+                <label class="field-label">Your Name</label>
+                <input type="text" class="field-input" placeholder="e.g. Ahmed Ali" id="fname">
+              </div>
+              <div class="col-sm-6">
+                <label class="field-label">Email Address</label>
+                <input type="email" class="field-input" placeholder="you@example.com" id="femail">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="field-label">Subject</label>
+              <input type="text" class="field-input" placeholder="What is this regarding?" id="fsubject">
+            </div>
+            <div class="mb-3">
+              <label class="field-label">Message</label>
+              <textarea class="field-input" placeholder="Tell us what's on your mind…" id="fmessage"></textarea>
+            </div>
+            <button class="btn-send" id="sendBtn" onclick="handleSend()">
+              <i class="bi bi-send"></i> Send Message
+            </button>
+            <div class="success-notice" id="successNotice">
+              <i class="bi bi-check-circle-fill" style="font-size:1.1rem;"></i>
+              Thanks for your message! We'll be in touch soon.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+
+        <div class="side-card fade-in s1 mb-4">
+          <div class="side-header">
+            <div class="side-header-icon"><i class="bi bi-share"></i></div>
+            <h6>Stay Connected</h6>
+          </div>
+          <div class="side-body">
+            <p>Follow us for the latest health tips, updates, and platform news.</p>
+            <a href="#" class="social-btn">
+              <div class="si" style="background:#e8f0fe; color:#1877f2;"><i class="bi bi-facebook"></i></div>
+              Facebook
+            </a>
+            <a href="#" class="social-btn">
+              <div class="si" style="background:#fce4ec; color:#e1306c;"><i class="bi bi-instagram"></i></div>
+              Instagram
+            </a>
+            <a href="#" class="social-btn">
+              <div class="si" style="background:#e8f5e9; color:#25d366;"><i class="bi bi-whatsapp"></i></div>
+              WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="location-card fade-in s2 mb-4">
+          <h6><i class="bi bi-geo-alt me-1"></i> Our Location</h6>
+          <p>Dera Ismail Khan, Khyber Pakhtunkhwa, Pakistan — available for remote collaboration worldwide.</p>
+        </div>
+
+        <div class="side-card fade-in s3">
+          <div class="side-header">
+            <div class="side-header-icon"><i class="bi bi-question-circle"></i></div>
+            <h6>Need Quick Help?</h6>
+          </div>
+          <div class="side-body">
+            <p>For health-related questions about our tool, check our blog first — it covers how the system works in detail.</p>
+            <a href="/blog" style="display:inline-flex; align-items:center; gap:6px; color:var(--primary); font-size:0.85rem; font-weight:600; text-decoration:none;">
+              <i class="bi bi-arrow-right-circle"></i> Read the Blog
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <span>MediSense AI</span> &nbsp;·&nbsp; Powered by Support Vector Machine &nbsp;·&nbsp; Not a substitute for professional medical advice
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function handleSend() {
+    const name = document.getElementById('fname').value.trim();
+    const email = document.getElementById('femail').value.trim();
+    const msg = document.getElementById('fmessage').value.trim();
+    if (!name || !email || !msg) {
+      alert('Please fill in your name, email, and message.');
+      return;
+    }
+    const btn = document.getElementById('sendBtn');
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Sending…';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.style.display = 'none';
+      const notice = document.getElementById('successNotice');
+      notice.style.display = 'flex';
+    }, 1200);
+  }
+</script>
+</body>
+</html>

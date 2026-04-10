@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — MediSense AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f0f4f8;
+      --surface: #ffffff;
+      --surface2: #e8edf3;
+      --primary: #1a6b5c;
+      --primary-light: #22897a;
+      --accent: #e8f5f1;
+      --accent2: #d0ede8;
+      --text: #12232e;
+      --text-muted: #5a7080;
+      --border: #d1dde6;
+      --shadow: 0 4px 24px rgba(26,107,92,0.10);
+      --radius: 18px;
+      --radius-sm: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* NAV */
+    .navbar { background: var(--surface) !important; border-bottom: 1px solid var(--border); padding: 12px 0; position: sticky; top: 0; z-index: 100; }
+    .brand-wrap { display: flex; align-items: center; gap: 10px; }
+    .brand-icon { width: 38px; height: 38px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; }
+    .brand-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--primary); letter-spacing: -0.5px; }
+    .brand-tag { font-size: 0.6rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-top: -2px; }
+    .nav-link { color: var(--text-muted) !important; font-weight: 500; font-size: 0.88rem; padding: 6px 14px !important; border-radius: 8px; transition: all 0.2s; }
+    .nav-link:hover, .nav-link.active { color: var(--primary) !important; background: var(--accent); }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, #1a6b5c 0%, #134e3f 60%, #0f3d31 100%); padding: 64px 0 72px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -60px; right: -80px; width: 420px; height: 420px; border-radius: 50%; background: rgba(255,255,255,0.05); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: #a7e8d8; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px; padding: 5px 14px; border-radius: 20px; margin-bottom: 18px; }
+    .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: white; line-height: 1.15; letter-spacing: -1px; margin-bottom: 14px; }
+    .hero h1 span { color: #7ee8cc; }
+    .hero p { color: rgba(255,255,255,0.7); font-size: 1rem; font-weight: 300; max-width: 520px; line-height: 1.7; }
+
+    /* CONTENT */
+    .content-wrap { margin-top: -36px; position: relative; z-index: 2; padding-bottom: 60px; }
+
+    /* VALUE CARDS (top row) */
+    .value-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 28px; height: 100%; transition: transform 0.2s, box-shadow 0.2s; }
+    .value-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .value-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 16px; }
+    .value-card h5 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 8px; color: var(--text); }
+    .value-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* STORY SECTION */
+    .story-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .story-header { background: var(--accent); border-bottom: 1px solid var(--accent2); padding: 20px 28px; display: flex; align-items: center; gap: 12px; }
+    .story-header-icon { width: 38px; height: 38px; background: var(--primary); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; }
+    .story-header h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--primary); margin: 0; }
+    .story-body { padding: 28px; }
+    .story-body p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 16px; }
+    .story-body p:last-child { margin-bottom: 0; }
+
+    /* STATS BAR */
+    .stats-bar { background: linear-gradient(135deg, var(--primary) 0%, #134e3f 100%); border-radius: var(--radius); padding: 36px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 24px; }
+    .stat-item { text-align: center; }
+    .stat-num { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: #7ee8cc; display: block; }
+    .stat-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* HOW IT WORKS */
+    .step-item { display: flex; gap: 18px; align-items: flex-start; padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .step-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .step-num { width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: white; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.92rem; margin-bottom: 4px; }
+    .step-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* FOOTER */
+    .footer { background: var(--text); color: rgba(255,255,255,0.45); text-align: center; padding: 28px; font-size: 0.8rem; }
+    .footer span { color: rgba(255,255,255,0.7); }
+
+    /* FADE */
+    .fade-in { animation: fadeIn 0.5s ease forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    .s1 { animation-delay: 0.05s; } .s2 { animation-delay: 0.12s; } .s3 { animation-delay: 0.19s; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand text-decoration-none" href="/">
+      <div class="brand-wrap">
+        <div class="brand-icon"><i class="bi bi-heart-pulse-fill"></i></div>
+        <div><span class="brand-name">MediSense</span><span class="brand-tag">AI Health Assistant</span></div>
+      </div>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMain">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-1">
+        <li class="nav-item"><a class="nav-link" href="/"><i class="bi bi-house me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/about"><i class="bi bi-info-circle me-1"></i>About</a></li>
+        <li class="nav-item"><a class="nav-link" href="/blog"><i class="bi bi-journal-text me-1"></i>Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="/developer"><i class="bi bi-code-slash me-1"></i>Developer</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contact"><i class="bi bi-envelope me-1"></i>Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge"><i class="bi bi-info-circle"></i> About MediSense</div>
+    <h1>Health meets <span>Technology</span></h1>
+    <p>We believe that access to healthcare information is a fundamental right — not a luxury. Our AI-powered platform makes understanding your health simpler, faster, and more personal.</p>
+  </div>
+</section>
+
+<div class="content-wrap">
+  <div class="container">
+
+    <!-- Value Cards -->
+    <div class="row g-4 mb-4">
+      <div class="col-md-4">
+        <div class="value-card fade-in s1">
+          <div class="value-icon" style="background:#e8f5f1; color:#1a6b5c;"><i class="bi bi-eye"></i></div>
+          <h5>Our Vision</h5>
+          <p>A world where every person — regardless of location or background — can access meaningful, personalised health insights instantly.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="value-card fade-in s2">
+          <div class="value-icon" style="background:#fff3e0; color:#e8a228;"><i class="bi bi-bullseye"></i></div>
+          <h5>Our Mission</h5>
+          <p>To harness machine learning and medical knowledge to assist individuals in understanding potential health concerns before they escalate.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="value-card fade-in s3">
+          <div class="value-icon" style="background:#fce4ec; color:#d64040;"><i class="bi bi-heart"></i></div>
+          <h5>Our Priority</h5>
+          <p>Your well-being. We go beyond predictions — providing descriptions, precautions, medications, diets, and workout guidance all in one place.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar mb-4 fade-in">
+      <div class="stat-item"><span class="stat-num">41+</span><span class="stat-label">Diseases Covered</span></div>
+      <div class="stat-item"><span class="stat-num">132</span><span class="stat-label">Symptoms Tracked</span></div>
+      <div class="stat-item"><span class="stat-num">SVM</span><span class="stat-label">ML Algorithm</span></div>
+      <div class="stat-item"><span class="stat-num">5+</span><span class="stat-label">Data Categories</span></div>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- Story -->
+      <div class="col-lg-7">
+        <div class="story-card fade-in">
+          <div class="story-header">
+            <div class="story-header-icon"><i class="bi bi-book"></i></div>
+            <h4>Our Story</h4>
+          </div>
+          <div class="story-body">
+            <p>MediSense began with a straightforward observation: navigating healthcare is hard. Symptoms overlap, medical jargon is complex, and appointments aren't always immediately available. We set out to bridge that gap with technology.</p>
+            <p>Our team of healthcare professionals, data scientists, and engineers came together to build a platform that translates raw symptoms into actionable, understandable health insights — powered by a Support Vector Machine model trained on extensive medical datasets.</p>
+            <p>We're not replacing doctors. We're empowering you with knowledge so that when you do see a professional, you're informed, prepared, and confident.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- How it Works -->
+      <div class="col-lg-5">
+        <div class="story-card fade-in" style="animation-delay:0.1s;">
+          <div class="story-header">
+            <div class="story-header-icon"><i class="bi bi-diagram-3"></i></div>
+            <h4>How It Works</h4>
+          </div>
+          <div class="story-body">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div><div class="step-title">Enter Your Symptoms</div><div class="step-desc">Type or speak your symptoms into our intuitive input — comma-separated or using quick-tap chips.</div></div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div><div class="step-title">AI Analysis</div><div class="step-desc">Our SVM model processes your symptom vector against a trained medical dataset in real time.</div></div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div><div class="step-title">Get Your Results</div><div class="step-desc">Receive a predicted condition along with descriptions, precautions, medications, diet, and workout advice.</div></div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">4</div>
+              <div><div class="step-title">Consult a Professional</div><div class="step-desc">Use your newfound knowledge to have a more informed conversation with your doctor.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <span>MediSense AI</span> &nbsp;·&nbsp; Powered by Support Vector Machine &nbsp;·&nbsp; Not a substitute for professional medical advice
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
